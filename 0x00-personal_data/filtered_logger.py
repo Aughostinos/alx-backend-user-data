@@ -84,6 +84,8 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
 def main() -> None:
     """
     Main function to retrieve data from the database
@@ -110,7 +112,6 @@ def main() -> None:
 
     cursor.close()
     db.close()
-
 
 
 if __name__ == "__main__":
