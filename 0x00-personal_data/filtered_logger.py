@@ -95,7 +95,7 @@ def main() -> None:
     cursor = db.cursor()
 
     # retrieve all rows from the 'users' table
-    cursor.execute("SELECT name, email, phone, ssn, password, ip, last_login, user_agent FROM users;")
+    cursor.execute(("SELECT name, email, phone, ssn, password, ip, last_login, user_agent FROM users;"))
     rows = cursor.fetchall()
 
     # the logger
