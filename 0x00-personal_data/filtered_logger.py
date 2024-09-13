@@ -5,6 +5,28 @@ Module 0x00-personal_data
 import re
 import logging
 from typing import List
+import os
+import mysql.connector
+from mysql.connector import connection
+
+
+def get_db() -> connection.MySQLConnection:
+    """
+    Connect to a secure MySQL database
+    """
+    # Retrieve environment variables with defaults
+    username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    database = os.getenv('PERSONAL_DATA_DB_NAME')
+
+    # Connect to the MySQL database
+    return mysql.connector.connect(
+        user=username,
+        password=password,
+        host=host,
+        database=database
+    )
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
