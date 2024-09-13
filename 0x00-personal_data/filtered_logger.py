@@ -28,6 +28,7 @@ def get_db() -> connection.MySQLConnection:
         database=database
     )
 
+
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
@@ -83,3 +84,34 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+def main() -> None:
+    """
+    Main function to retrieve data from the database
+    """
+    # database connection
+    db = get_db()
+    cursor = db.cursor()
+
+    # retrieve all rows from the 'users' table
+    cursor.execute("SELECT name, email, phone, ssn, password, ip, last_login, user_agent FROM users;")
+    rows = cursor.fetchall()
+
+    # the logger
+    logger = get_logger()
+
+    # Log each row in the required format
+    for row in rows:
+        name, email, phone, ssn, password, ip, last_login, user_agent = row
+        message = (f"name={name}; email={email}; phone={phone}; ssn={ssn}; "
+                   f"password={password}; ip={ip}; last_login={last_login}; "
+                   f"user_agent={user_agent};")
+        # Log the messag
+        logger.info(message)
+
+    cursor.close()
+    db.close()
+
+
+
+if __name__ == "__main__":
+    main()
