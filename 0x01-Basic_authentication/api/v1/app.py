@@ -26,9 +26,10 @@ def unauthorized_error(error):
     """Handle 401 Unauthorized error"""
     return jsonify({"error": "Unauthorized"}), 401
 
+
 @app.errorhandler(403)
-def forbidden(error):
-    """ Custom handler for 403 error """
+def forbidden(error) -> str:
+    """ Handle 403 Unauthorized error """
     return jsonify({"error": "Forbidden"}), 403
 
 
