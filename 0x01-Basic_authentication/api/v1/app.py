@@ -23,6 +23,7 @@ if auth_type == 'basic_auth':
 else:
     auth = Auth()
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
