@@ -34,7 +34,7 @@ class Auth:
         """
         if request is None:
             return None
-        if 'Authorization' not in request.header:
+        if 'Authorization' not in request.headers:
             return None
         return request.headers.get('Authorization')
 
