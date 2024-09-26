@@ -32,6 +32,7 @@ class Auth:
                     return False
             elif pattern == path:
                 return False
+
         return True
 
     def authorization_header(self, request=None) -> str:
