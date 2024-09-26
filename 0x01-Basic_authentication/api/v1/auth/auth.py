@@ -20,13 +20,11 @@ class Auth:
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
 
-        for pattern in excluded_paths:
-            if pattern.endswith('*'):
-                if path.startswith(pattern[:-1]):
-                    return False
+        if not path.endswith('/'):
+            path += '/'
 
-            elif pattern == path or (pattern.rstrip('/') == path.rstrip('/')):
-                return False
+        if path in excluded_paths:
+            return False
 
         return True
 
