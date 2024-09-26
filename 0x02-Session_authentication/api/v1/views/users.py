@@ -30,7 +30,10 @@ def view_one_user(user_id: str = None) -> str:
     if user_id == "me":
         if request.current_user is None:
             abort(404)
-        return jsonify(request.current_user.to_dict())
+        try:
+            return jsonify(request.current_user.to_dict())
+        except Exception as e:
+            abort(500)
 
     user = User.get(user_id)
     if user is None:
