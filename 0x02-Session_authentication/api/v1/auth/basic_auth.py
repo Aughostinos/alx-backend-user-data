@@ -6,6 +6,8 @@ import base64
 from api.v1.auth.auth import Auth
 from typing import TypeVar
 from models.user import User
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 
 class BasicAuth(Auth):
@@ -82,28 +84,28 @@ class BasicAuth(Auth):
         User instance for a request"""
         auth_header = self.authorization_header(request)
         if auth_header is None:
-            print("Authorization header missing")
+            logging.debug("Authorization header missing")
             return None
 
         base64_auth = self.extract_base64_authorization_header(auth_header)
         if base64_auth is None:
-            print("Base64 Authorization header missing or invalid")
+            logging.debug("Base64 Authorization header missing or invalid")
             return None
 
         decoded_auth = self.decode_base64_authorization_header(base64_auth)
         if decoded_auth is None:
-            print("Base64 Authorization header could not be decoded")
+            logging.debug("Base64 Authorization header could not be decoded")
             return None
 
         email, password = self.extract_user_credentials(decoded_auth)
         if email is None or password is None:
-            print("User not found or password invalid")
+            logging.debug("User not found or password invalid")
             return None
 
         user = self.user_object_from_credentials(email, password)
         if user is None:
-            print("User not found or password invalid")
+            logging.debug("User not found or password invalid")
             return None
 
-        print(f"Authenticated User: {user.email}")
+        logging.debug(f"Authenticated User: {user.email}")
         return user

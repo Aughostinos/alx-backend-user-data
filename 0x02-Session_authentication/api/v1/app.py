@@ -9,6 +9,8 @@ from api.v1.auth.basic_auth import BasicAuth
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 
 app = Flask(__name__)
@@ -62,7 +64,7 @@ def before_request():
         return abort(403)
 
     request.current_user = current_user
-    print(f"Authenticated User: {request.current_user}")
+    logging.debug(f"Authenticated User: {request.current_user}")
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
