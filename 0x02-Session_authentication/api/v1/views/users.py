@@ -8,7 +8,8 @@ from models.user import User
 
 @app_views.route('/users/me', methods=['GET'], strict_slashes=False)
 def get_me():
-    """test"""
+    """GET /api/v1/users/me
+    """
     if request.current_user is None:
         abort(404)
     return jsonify(request.current_user.to_json())
