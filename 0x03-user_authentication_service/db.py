@@ -43,13 +43,14 @@ class DB:
         returns:
         the first row found in the users table as filtered
         by the method’s input arguments."""
-    
+
         if not kwargs:
             raise InvalidRequestError(" wrong query arguments are passed")
         try:
-            user = self._session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                raise NoResultFound("no user found")
+            user = self._session.query(User).filter_by(**kwargs).one()
             return user
-        except InvalidRequestError as e:
-            raise InvalidRequestError("Invalid arguments provided") from e
+        
+        except NoResultFound:
+            raise NoResultFound("no user found")
+        except InvalidRequestError:
+            raise InvalidRequestError("Invalid arguments provided")
