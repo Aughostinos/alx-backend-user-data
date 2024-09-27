@@ -46,13 +46,10 @@ class DB:
     
         if not kwargs:
             raise InvalidRequestError(" wrong query arguments are passed")
-    
-        valid_key = User.__table__.columns.key()
-        for key in kwargs.keys():
-            if key not in valid_key:
-                raise InvalidRequestError("Invalid Key")
-
-        user = self._session.query(User).filter_by(**kwargs).first()
-        if user is None:
-            raise NoResultFound("no user found")
-        return user
+        try:
+            user = self._session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound("no user found")
+            return user
+        except InvalidRequestError as e:
+            raise InvalidRequestError("Invalid arguments provided") from e
