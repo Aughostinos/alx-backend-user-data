@@ -2,12 +2,12 @@
 """
 Basic Flask app
 """
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, Response
 from auth import Auth
 
-AUTH = Auth()
-
 app = Flask(__name__)
+
+AUTH = Auth()
 
 
 @app.route('/', methods=['GET'])
@@ -16,6 +16,7 @@ def Bienvenue() -> str:
     {"message": "Bienvenue"}"""
 
     return jsonify({"message": "Bienvenue"})
+
 
 @app.route('/users', methods=['POST'])
 def users() -> Response:
