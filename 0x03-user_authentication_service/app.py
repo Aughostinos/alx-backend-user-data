@@ -30,7 +30,8 @@ def users() -> Response:
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
-@app.route("/sessions ", methods=['POST'])
+
+@app.route("/sessions", methods=['POST'])
 def login() -> Response:
     """ respond to the POST /sessions route."""
     email = request.form.get('email')
@@ -38,10 +39,10 @@ def login() -> Response:
 
     if not email or not password:
         abort(401)
-    if not Auth.valid_login(email, password):
+    if not AUTH.valid_login(email, password):
         abort(401)
 
-    session_id = Auth.create_session(email)
+    session_id = AUTH.create_session(email)
     if not session_id:
         abort(401)
 
