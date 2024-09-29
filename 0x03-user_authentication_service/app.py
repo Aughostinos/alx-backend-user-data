@@ -85,7 +85,7 @@ def get_reset_password_token() -> Response:
     """respond to the POST /reset_password route."""
     email = request.form.get('email')
     if not email:
-        return jsonify({"message": "email required"}), 400
+        abort(403)
 
     try:
         reset_token = AUTH.get_reset_password_token(email)
