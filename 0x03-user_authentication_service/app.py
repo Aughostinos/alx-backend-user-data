@@ -103,7 +103,7 @@ def update_password() -> Response:
 
     if not email or not reset_token or not new_password:
         return jsonify({"message": "Missing parameters"}), 400
-    
+
     user = AUTH.get_user_from_reset_token(reset_token)
     if user is None or user.email != email:
         abort(403)
